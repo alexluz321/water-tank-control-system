@@ -131,7 +131,7 @@ public class LeituraEscritaCanais {
             while(true){
                 try{
                     if(!isOffline){
-                        for(int i=0; i<2; ++i){
+                        for(int i=0; i<7; ++i){
                             canal = i;
 //                            if(!isBusy){
 //                                valor = 6.25 * quanserClient.read(i);
