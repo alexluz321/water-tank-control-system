@@ -24,6 +24,7 @@ By choosing "Malha Fechada" you activate the control algorithms available: P, PI
 - Ti = integrative time
 - Kd = derivative gain
 - Td = derivative time
+
 ### P
 P control type. Has only one parameter, Kp.
 ### PI
