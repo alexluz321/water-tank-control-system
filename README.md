@@ -16,4 +16,21 @@ This wave is of saw type. It goes from the min amplitude to the max amplitude in
 This wave is just a step function, there is, just a constant output value. No offset or time period needed.
 ### Random Wave (Aleatória)
 This is a random wave and here the mandatory parameters are: offset, time period range (min and max), amplitude range (min and max).
-
+## Types of Control
+By choosing "Malha Fechada" you activate the control algorithms available: P, PI, PD, PID and PI-D.
+### Parameters
+- Kp = proportional gain
+- Ki = integrative gain
+- Ti = integrative time
+- Kd = derivative gain
+- Td = derivative time
+### P
+P control type. Has only one parameter, Kp.
+### PI
+Control type with integrative gain used to eliminate the error during steady state. Mandatory parameters are Kp and either Ki or Ti.
+### PD
+Control with derivative gain used to reduce overshoot and accomodation time. Mandatory: Kp and either Kd or Td.
+### PID 
+Control with both derivative and integrative gains. It has all the advantages of both PI and PD algorithms. Mandatory: Kp, Ki or Ti and Kd or Td.
+### PI-D
+Control with both derivative and integrative. Here the derivative gain is calculated based on the input variable rather than the error. Mandatory parameters are the same as PID.
