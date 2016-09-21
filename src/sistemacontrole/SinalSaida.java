@@ -94,7 +94,7 @@ public class SinalSaida {
         sinalSaida.start();
     }
     
-    class setSaidaMalhaFechada extends Thread{
+    public class setSaidaMalhaFechada extends Thread{
         private int tipoOnda;
         setSaidaMalhaFechada(int tipoOnda){
             this.tipoOnda = tipoOnda;
@@ -110,15 +110,18 @@ public class SinalSaida {
                         break;
                     case 2://degrau
                         gerarDegrau();
+                        leituraEscritaCanais.addSetPointCurva(sinal_calculado);
                         break;
                     case 3://quadrada
                         gerarQuadrada();
+                        leituraEscritaCanais.addSetPointCurva(sinal_calculado);
                         break;
                     case 4://serra
                         gerarSerra();
                         break;
                     case 5://aleatoria
                         gerarAleatoria();
+                        leituraEscritaCanais.addSetPointCurva(sinal_calculado);
                         break;
                     default:
                         System.out.println("Nenhuma onda selecionada.");

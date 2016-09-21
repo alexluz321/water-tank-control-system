@@ -375,7 +375,7 @@ public class PID {
                         if(valorSensor >= setPoint-(setPoint*0.02) && valorSensor <= setPoint+(setPoint*0.02)) 
                             break;
                     }
-                    Thread.sleep(5);
+                    Thread.sleep(50);
                 } catch (Exception ex) {
                     System.out.println("Erro durante analise de sistema: "+ex);
                 }

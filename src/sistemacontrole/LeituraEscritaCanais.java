@@ -46,7 +46,7 @@ public class LeituraEscritaCanais {
     private static long tempoInicial;
     
     //curvas dos gráficos
-    private final XYSeries sinal_tratado, sinal_calculado;
+    private final XYSeries sinal_tratado, sinal_calculado, setPointCurva;
     private final XYSeries[] sinal_entrada;
     private final XYSeries valor_P, valor_I, valor_D, erro_PID;
     private static boolean isBusy;
@@ -88,6 +88,7 @@ public class LeituraEscritaCanais {
         this.valor_I = new XYSeries("Parametro I");
         this.valor_D = new XYSeries("Parametro D");
         this.erro_PID = new XYSeries("Erro calculado");
+        this.setPointCurva = new XYSeries("Set Point");
         
         for(int i=0; i<7; ++i){
             this.sinal_entrada[i] = new XYSeries("Canal "+i);
@@ -300,6 +301,7 @@ public class LeituraEscritaCanais {
                 dataset.addSeries(this.sinal_entrada[i]);
             }
         }
+        dataset.addSeries(this.setPointCurva);
         return dataset;
     }
     
@@ -352,5 +354,9 @@ public class LeituraEscritaCanais {
                 System.out.println("Erro na escrita do canal "+canal+": "+e);
             }
         }
+    }
+    
+    public void addSetPointCurva(double setPoint){
+        this.setPointCurva.add(this.tempoGlobal, setPoint);
     }
 }
