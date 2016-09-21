@@ -6,9 +6,13 @@
 package sistemacontrole;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -18,14 +22,52 @@ public class MainWindow extends javax.swing.JFrame {
     ImageIcon iconON = new ImageIcon(SistemaControle.class.getResource("/imagens/diagrama_on.png"));
     ImageIcon iconOFF = new ImageIcon(SistemaControle.class.getResource("/imagens/diagrama_off.png"));
     ImageIcon iconRV = new ImageIcon(SistemaControle.class.getResource("/imagens/diagrama_reverse.png"));
-
+    DefaultTableModel model;
+    TableColumnModel colunas;
+    TableColumn col;
+    List<TableColumn> colunasRemovidas;
+    int tamColunas[] = new int[9];
     /**
      * Creates new form MainWindow
      */
     public MainWindow() {
+        model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        
         initComponents();
+        
+        model.addColumn("SetPoint");
+        model.addColumn("Tpico");
+        model.addColumn("Tr 100%");
+        model.addColumn("Tr 95%");
+        model.addColumn("Tr 90%");
+        model.addColumn("Ts 2%");
+        model.addColumn("Ts 5%");
+        model.addColumn("Ts 10%");
+        model.addColumn("Mp% Mp");
+        
+        this.colunas = this.tabelaDetalhes.getColumnModel();
+        for(int i=0; i<9; i++){
+            this.colunas.getColumn(i).setMinWidth(0);
+        }
+        this.colunas.getColumn(3).setMaxWidth(0);
+        this.colunas.getColumn(4).setMaxWidth(0);
+        this.colunas.getColumn(5).setMaxWidth(0);
+        this.colunas.getColumn(6).setMaxWidth(0);
+        
+        model.addRow(new Object[] { "0-10cm", "5s", "3s", "20s", "10s", "14s", "40s", "30s", "20% 2cm" });
     }
-
+    
+    //objeto model que vai ser usado para adicionar dinamicamente linhas a tabela
+    public DefaultTableModel getTableModel(){
+        return this.model;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,6 +80,8 @@ public class MainWindow extends javax.swing.JFrame {
         ControleSelecao = new javax.swing.ButtonGroup();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         PainelEntrada = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         SaidaCanal0 = new javax.swing.JCheckBox();
@@ -49,10 +93,6 @@ public class MainWindow extends javax.swing.JFrame {
         SaidaCanal5 = new javax.swing.JCheckBox();
         SaidaCanal6 = new javax.swing.JCheckBox();
         BotaoLer = new javax.swing.JToggleButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        ControleCanal0 = new javax.swing.JRadioButton();
-        ControleCanal1 = new javax.swing.JRadioButton();
         PainelSaida = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -65,6 +105,18 @@ public class MainWindow extends javax.swing.JFrame {
         LabelDiagrama = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaDetalhes = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        tabelaSetPoint = new javax.swing.JCheckBox();
+        tabelaMp = new javax.swing.JCheckBox();
+        tabelaTs10 = new javax.swing.JCheckBox();
+        tabelaTr100 = new javax.swing.JCheckBox();
+        tabelaTr95 = new javax.swing.JCheckBox();
+        tabelaTr90 = new javax.swing.JCheckBox();
+        tabelaTpico = new javax.swing.JCheckBox();
+        tabelaTs2 = new javax.swing.JCheckBox();
+        tabelaTs5 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -76,9 +128,23 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem4.setText("jMenuItem4");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1100, 760));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(1370, 714));
+        setPreferredSize(new java.awt.Dimension(1370, 760));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PainelEntrada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -92,6 +158,8 @@ public class MainWindow extends javax.swing.JFrame {
             PainelEntradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 328, Short.MAX_VALUE)
         );
+
+        getContentPane().add(PainelEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -206,50 +274,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        jLabel2.setText("Variáveis de Controle");
-
-        ControleSelecao.add(ControleCanal0);
-        ControleCanal0.setSelected(true);
-        ControleCanal0.setText("Canal 0");
-        ControleCanal0.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ControleCanal0ActionPerformed(evt);
-            }
-        });
-
-        ControleSelecao.add(ControleCanal1);
-        ControleCanal1.setText("Canal 1");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ControleCanal1)
-                            .addComponent(ControleCanal0))))
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ControleCanal0)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ControleCanal1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(715, 19, -1, -1));
 
         PainelSaida.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -264,13 +289,19 @@ public class MainWindow extends javax.swing.JFrame {
             .addGap(0, 328, Short.MAX_VALUE)
         );
 
+        getContentPane().add(PainelSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 388, -1, -1));
+
         jLabel7.setText("Níveis dos Tanques");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, -1));
 
         jLabel8.setText("Tensão das bombas");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 359, -1, -1));
 
         BotaoTipoDeFuncao.setText("Tipo de Função");
+        getContentPane().add(BotaoTipoDeFuncao, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 252, 176, 41));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pararSinalBt.setBackground(new java.awt.Color(255, 255, 255));
         pararSinalBt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/stop.png"))); // NOI18N
@@ -280,6 +311,7 @@ public class MainWindow extends javax.swing.JFrame {
                 pararSinalBtActionPerformed(evt);
             }
         });
+        getContentPane().add(pararSinalBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 292, 120, 43));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -337,6 +369,113 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 388, -1, -1));
+
+        tabelaDetalhes.setModel(model);
+        jScrollPane2.setViewportView(tabelaDetalhes);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 19, -1, -1));
+
+        tabelaSetPoint.setSelected(true);
+        tabelaSetPoint.setText("SetPoint");
+        tabelaSetPoint.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaSetPointStateChanged(evt);
+            }
+        });
+
+        tabelaMp.setSelected(true);
+        tabelaMp.setText("Mp% Mp");
+        tabelaMp.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaMpStateChanged(evt);
+            }
+        });
+
+        tabelaTs10.setSelected(true);
+        tabelaTs10.setText("Ts 10%");
+        tabelaTs10.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTs10StateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabelaSetPoint)
+            .addComponent(tabelaMp)
+            .addComponent(tabelaTs10)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(tabelaSetPoint)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tabelaMp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tabelaTs10)
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 440, -1, -1));
+
+        tabelaTr100.setSelected(true);
+        tabelaTr100.setText("Tr 100%");
+        tabelaTr100.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTr100StateChanged(evt);
+            }
+        });
+        tabelaTr100.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tabelaTr100ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tabelaTr100, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 440, -1, -1));
+
+        tabelaTr95.setText("Tr 95%");
+        tabelaTr95.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTr95StateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTr95, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 440, -1, -1));
+
+        tabelaTr90.setText("Tr 90%");
+        tabelaTr90.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTr90StateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTr90, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 440, -1, -1));
+
+        tabelaTpico.setSelected(true);
+        tabelaTpico.setText("Tpico");
+        tabelaTpico.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTpicoStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTpico, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 470, -1, -1));
+
+        tabelaTs2.setText("Ts 2%");
+        tabelaTs2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTs2StateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTs2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 470, -1, -1));
+
+        tabelaTs5.setText("Ts 5%");
+        tabelaTs5.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTs5StateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTs5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 470, -1, -1));
+
         jMenu1.setText("Menu");
 
         jMenuItem1.setText("Sobre");
@@ -376,62 +515,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PainelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel8)))
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pararSinalBt, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BotaoTipoDeFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(PainelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel7)
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PainelEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(pararSinalBt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(BotaoTipoDeFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PainelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -458,10 +541,6 @@ public class MainWindow extends javax.swing.JFrame {
     private void SaidaCanal4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaidaCanal4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SaidaCanal4ActionPerformed
-
-    private void ControleCanal0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ControleCanal0ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ControleCanal0ActionPerformed
 
     private void SaidaCanal5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaidaCanal5ActionPerformed
         // TODO add your handling code here:
@@ -490,6 +569,100 @@ public class MainWindow extends javax.swing.JFrame {
     private void jMenuItem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseClicked
         
     }//GEN-LAST:event_jMenuItem3MouseClicked
+
+    private void tabelaTr100ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelaTr100ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaTr100ActionPerformed
+
+    private void tabelaSetPointStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaSetPointStateChanged
+        if(this.tabelaSetPoint.isSelected()){
+            this.colunas.getColumn(0).setMaxWidth(200);
+            this.colunas.getColumn(0).setPreferredWidth(90);
+        }
+        else{
+            this.colunas.getColumn(0).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaSetPointStateChanged
+
+    private void tabelaTr100StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTr100StateChanged
+        if(this.tabelaTr100.isSelected()){
+            this.colunas.getColumn(2).setMaxWidth(200);
+            this.colunas.getColumn(2).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(2).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTr100StateChanged
+
+    private void tabelaTr95StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTr95StateChanged
+        if(this.tabelaTr95.isSelected()){
+            this.colunas.getColumn(3).setMaxWidth(200);
+            this.colunas.getColumn(3).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(3).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTr95StateChanged
+
+    private void tabelaTr90StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTr90StateChanged
+        if(this.tabelaTr90.isSelected()){
+            this.colunas.getColumn(4).setMaxWidth(200);
+            this.colunas.getColumn(4).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(4).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTr90StateChanged
+
+    private void tabelaTs2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTs2StateChanged
+        if(this.tabelaTs2.isSelected()){
+            this.colunas.getColumn(5).setMaxWidth(200);
+            this.colunas.getColumn(5).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(5).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTs2StateChanged
+
+    private void tabelaTs5StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTs5StateChanged
+        if(this.tabelaTs5.isSelected()){
+            this.colunas.getColumn(6).setMaxWidth(200);
+            this.colunas.getColumn(6).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(6).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTs5StateChanged
+
+    private void tabelaTs10StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTs10StateChanged
+        if(this.tabelaTs10.isSelected()){
+            this.colunas.getColumn(7).setMaxWidth(200);
+            this.colunas.getColumn(7).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(7).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTs10StateChanged
+
+    private void tabelaMpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaMpStateChanged
+        if(this.tabelaMp.isSelected()){
+            this.colunas.getColumn(8).setMaxWidth(200);
+            this.colunas.getColumn(8).setPreferredWidth(85);
+        }
+        else{
+            this.colunas.getColumn(8).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaMpStateChanged
+
+    private void tabelaTpicoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTpicoStateChanged
+        if(this.tabelaTpico.isSelected()){
+            this.colunas.getColumn(1).setMaxWidth(200);
+            this.colunas.getColumn(1).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(1).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTpicoStateChanged
     public void addLerListener(ActionListener e){
         this.BotaoLer.addActionListener(e);
     }
@@ -614,8 +787,6 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BotaoLer;
     private javax.swing.JButton BotaoTipoDeFuncao;
-    private javax.swing.JRadioButton ControleCanal0;
-    private javax.swing.JRadioButton ControleCanal1;
     private javax.swing.ButtonGroup ControleSelecao;
     protected javax.swing.JLabel LabelDiagrama;
     protected javax.swing.JPanel PainelEntrada;
@@ -628,7 +799,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox SaidaCanal5;
     private javax.swing.JCheckBox SaidaCanal6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -644,8 +814,21 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     protected javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JMenu logMenuItem;
     private javax.swing.JButton pararSinalBt;
+    private javax.swing.JTable tabelaDetalhes;
+    private javax.swing.JCheckBox tabelaMp;
+    private javax.swing.JCheckBox tabelaSetPoint;
+    private javax.swing.JCheckBox tabelaTpico;
+    private javax.swing.JCheckBox tabelaTr100;
+    private javax.swing.JCheckBox tabelaTr90;
+    private javax.swing.JCheckBox tabelaTr95;
+    private javax.swing.JCheckBox tabelaTs10;
+    private javax.swing.JCheckBox tabelaTs2;
+    private javax.swing.JCheckBox tabelaTs5;
     protected javax.swing.JProgressBar tanque1Progress;
     protected javax.swing.JProgressBar tanque2Progress;
     // End of variables declaration//GEN-END:variables

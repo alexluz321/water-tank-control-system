@@ -6,10 +6,7 @@
 package sistemacontrole;
 
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  *
@@ -19,9 +16,7 @@ public class SinalSaida {
     private static PID pid;
     
     private double sinal_calculado, sinal_tratado;
-    private MainWindow mainWindow;
-    private SistemaControle ClasseSC;
-   ImageIcon diagramaON = new ImageIcon(LeituraEscritaCanais.class.getResource("/imagens/diagrama_on.png"));
+    ImageIcon diagramaON = new ImageIcon(LeituraEscritaCanais.class.getResource("/imagens/diagrama_on.png"));
     ImageIcon diagramaREV = new ImageIcon(LeituraEscritaCanais.class.getResource("/imagens/diagrama_reverse.png"));
     ImageIcon diagramaOFF = new ImageIcon(LeituraEscritaCanais.class.getResource("/imagens/diagrama_off.png"));
 
