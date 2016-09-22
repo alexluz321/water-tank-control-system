@@ -16,7 +16,7 @@ public class PID {
     
     private final FuncoesWindow funcoesWindow;
     private final LeituraEscritaCanais leituraEscrita;
-
+    private final MainWindow mainWindow;
     
     //variáveis de controle
     private double kp, ki, kd, ti, td;
@@ -37,6 +37,9 @@ public class PID {
     private double setPoint;
     private double setPointAnterior;
     
+    //variável de analise
+    private boolean runAnalise = false;
+    
     //resultado final do sinal de controle
     private double sinal_calculado;
     
@@ -50,9 +53,10 @@ public class PID {
     private double saturacao;
 //    private double antiWindUpValor;
             
-    PID(FuncoesWindow funcoesWindow, LeituraEscritaCanais leituraEscrita){
+    PID(FuncoesWindow funcoesWindow, LeituraEscritaCanais leituraEscrita, MainWindow mainWindow){
         this.funcoesWindow = funcoesWindow;
         this.leituraEscrita = leituraEscrita;
+        this.mainWindow = mainWindow;
         
         this.setPoint = 0;
         this.setPointAnterior = 0;
@@ -114,6 +118,7 @@ public class PID {
     public void calcularErros(){
         double leituraCanal = this.leituraEscrita.getCanalLeitura(this.funcoesWindow.getPV());
         this.erro = this.setPoint - leituraCanal;
+        //System.out.println(this.erro + " "+leituraCanal);
         this.erroSoma += this.erro;
         this.erroDif = this.erro - this.ultimoErro;
         this.erroDifD2 = leituraCanal - this.ultimoValorSensor;
@@ -190,10 +195,15 @@ public class PID {
     
     //aplica o setpoint do controle
     public void setSetPoint(double setPoint){
-        this.setPointAnterior = this.setPoint;
-        this.setPoint = setPoint;
-        //calcular analise do sistema para novo valor de set point
-        runAnaliseSistema();
+        if(setPoint != this.setPoint){
+            runAnalise = false;
+            this.setPointAnterior = this.setPoint;
+            this.setPoint = setPoint;
+            //calcular analise do sistema para novo valor de set point
+            runAnalise = true;
+            mainWindow.addNewRow();
+            runAnaliseSistema();
+        }
     }
     
     //retorna o sample time do controle
@@ -232,6 +242,7 @@ public class PID {
         @Override
         public void run(){
             String _setPoint = setPointAnterior + "cm - " + setPoint + "cm";
+            mainWindow.setValueTable("SetPoint", _setPoint);
             long startTime = System.currentTimeMillis();//inicio de medição
             long Tpico = 0, Ts2 = 0, Ts5 = 0, Ts10 = 0, Tr100 = 0, Tr95 = 0, Tr90 = 0,
                  startTr95 = 0, startTr90 = 0;
@@ -242,152 +253,128 @@ public class PID {
             double valorSensor;
             double set = (setPoint - setPointAnterior);
             
-            while(true){
+            while(runAnalise){
                 try {
                     valorSensor = getSensorValor();
-                    if(setPoint - setPointAnterior > 0){
-                        if(valorSensor >= ((set)*0.1)+setPointAnterior && !startedTimeTr90){
-                            startTr90 = System.currentTimeMillis();//inicio de contagem para 10-90%
-                            startedTimeTr90 = true;
+                    
+                    //calculo de 2% de acomodação
+                    if(valorSensor <= setPoint*1.02 || valorSensor >= setPoint*0.98){
+                        if(!endTs2){
+                            Ts2 = System.currentTimeMillis() - startTime;
+                            String value = String.format("%.2f",(double)Ts2/1000);
+                            mainWindow.setValueTable("Ts2", value);
+                            endTs2 = true;
                         }
-                        else if(valorSensor >= ((set)*0.05)+setPointAnterior && !startedTimeTr95){
-                            startTr95 = System.currentTimeMillis();//inicio de contagem para 5-95%
-                            startedTimeTr95 = true;
+                    }
+                    else{
+                        endTs2 = false;
+                    }
+
+                    //calculo de 5% de acomodação
+                    if(valorSensor <= setPoint*1.05 || valorSensor >= setPoint*0.95){
+                        if(!endTs5){
+                            Ts5 = System.currentTimeMillis() - startTime;
+                            String value = String.format("%.2f",(double)Ts5/1000);
+                            mainWindow.setValueTable("Ts5", value);
+                            endTs5 = true;
                         }
-                        else if(valorSensor >= ((set)*0.95)+setPointAnterior && !endTr95){
-                            Tr95 = System.currentTimeMillis() - startTr95;//final de contagem para 5-95%
-                            endTr95 = true;
+                    }
+                    else{
+                        endTs5 = false;
+                    }
+
+                    //calculo de 10% de acomodação
+                    if(valorSensor <= setPoint*1.1 || valorSensor >= setPoint*0.9){
+                        if(!endTs2){
+                            Ts10 = System.currentTimeMillis() - startTime;
+                            String value = String.format("%.2f",(double)Ts10/1000);
+                            mainWindow.setValueTable("Ts10", value);
+                            endTs10 = true;
                         }
-                        else if(valorSensor >= ((set)*0.90)+setPointAnterior && !endTr90){
-                            Tr90 = System.currentTimeMillis() - startTr90;//final de contagem para 10-90%
-                            endTr95 = true;
-                        }
-                        
-                        if(valorSensor >= setPoint){//overshoot
-                            if(!endTr100){
-                                Tr100 = System.currentTimeMillis() - startTime;//tempo de subida 0-100%
-                                endTr100 = true;
-                            }
-                            
-                            //calculo de 2% de acomodação
-                            if(valorSensor <= (setPoint*0.02)+setPoint){
-                                if(!endTs2){
-                                    Ts2 = System.currentTimeMillis() - startTime;
-                                    endTs2 = true;
-                                }
-                            }
-                            else{
-                                endTs2 = false;
-                            }
-                            
-                            //calculo de 5% de acomodação
-                            if(valorSensor <= (setPoint*0.05)+setPoint){
-                                if(!endTs5){
-                                    Ts5 = System.currentTimeMillis() - startTime;
-                                    endTs5 = true;
-                                }
-                            }
-                            else{
-                                endTs5 = false;
-                            }
-                            
-                            //calculo de 10% de acomodação
-                            if(valorSensor <= (setPoint*0.1)+setPoint){
-                                if(!endTs2){
-                                    Ts10 = System.currentTimeMillis() - startTime;
-                                    endTs10 = true;
-                                }
-                            }
-                            else{
-                                endTs10 = false;
-                            }
-                            
-                            if(valorSensor - setPoint >= Mpcm){//calculo do valor de pico
-                                Mpcm = valorSensor - setPoint;
-                                Mp_porcentagem = (Mpcm/setPoint)*100;
-                                Tpico = System.currentTimeMillis() - startTime;//tempo do pico
-                                endTpico = true;//sinalizar que acabou de calcular o tempo de pico
-                            }
-                        }
+                    }
+                    else{
+                        endTs10 = false;
                     }
                     
-                    else{//caso o setpoint seja abaixo do setpoint anterior
-                        if(valorSensor <= setPointAnterior-(Math.abs(set)*0.1) && !startedTimeTr90){
-                            startTr90 = System.currentTimeMillis();//inicio de contagem para 10-90%
-                            startedTimeTr90 = true;
-                        }
-                        else if(valorSensor <= setPointAnterior-(Math.abs(set)*0.05) && !startedTimeTr95){
-                            startTr95 = System.currentTimeMillis();//inicio de contagem para 5-95%
-                            startedTimeTr95 = true;
-                        }
-                        else if(valorSensor <= setPointAnterior-(Math.abs(set)*0.95) && !endTr95){
-                            Tr95 = System.currentTimeMillis() - startTr95;//final de contagem para 5-95%
-                            endTr95 = true;
-                        }
-                        else if(valorSensor <= setPointAnterior-(Math.abs(set)*0.9) && !endTr90){
-                            Tr90 = System.currentTimeMillis() - startTr90;//final de contagem para 10-90%
-                            endTr95 = true;
-                        }
-                        
-                        if(valorSensor <= setPoint){//undershoot
-                            //tempo de subida 0-100%
-                            if(!endTr100){
-                                Tr100 = System.currentTimeMillis() - startTime;
-                                endTr100 = true;
-                            }
-                            
-                            //calculo de 10% de acomodação
-                            if(valorSensor <= setPoint-(setPoint*0.1)){
-                                if(!endTs2){
-                                    Ts10 = System.currentTimeMillis() - startTime;
-                                    endTs10 = true;
-                                }
-                            }
-                            else{
-                                endTs10 = false;
-                            }
-                            
-                            //calculo de 5% de acomodação
-                            if(valorSensor <= setPoint-(setPoint*0.05)){
-                                if(!endTs5){
-                                    Ts5 = System.currentTimeMillis() - startTime;
-                                    endTs5 = true;
-                                }
-                            }
-                            else{
-                                endTs5 = false;
-                            }
-                            
-                            //calculo de 2% de acomodação
-                            if(valorSensor <= setPoint-(setPoint*0.02)){
-                                if(!endTs2){
-                                    Ts2 = System.currentTimeMillis() - startTime;
-                                    endTs2 = true;
-                                }
-                            }
-                            else{
-                                endTs2 = false;
-                            }
-                        }
+                    //inicio de contagem para 10-90%
+                    if(((valorSensor >= ((set)*0.1)+setPointAnterior && set > 0) ||
+                        (valorSensor <= setPointAnterior-(Math.abs(set)*0.1) && set < 0)) && 
+                        !startedTimeTr90){
+
+                        startTr90 = System.currentTimeMillis();
+                        startedTimeTr90 = true;
                     }
                     
-                    if(endTpico && endTs5 && endTs10 && endTr100 && endTr95 && endTr90 && endMp){
-                        if(valorSensor >= setPoint-(setPoint*0.02) && valorSensor <= setPoint+(setPoint*0.02)) 
-                            break;
+                    //inicio de contagem para 5-95%
+                    if(((valorSensor >= ((set)*0.05)+setPointAnterior && set > 0) ||
+                        (valorSensor <= setPointAnterior-(Math.abs(set)*0.05) && set < 0)) &&
+                        !startedTimeTr95){
+
+                        startTr95 = System.currentTimeMillis();
+                        startedTimeTr95 = true;
                     }
-                    Thread.sleep(50);
+                    
+                    //final de contagem para 5-95%
+                    if(((valorSensor >= ((set)*0.95)+setPointAnterior && set > 0) || 
+                        (valorSensor <= setPointAnterior-(Math.abs(set)*0.95) && set < 0)) && 
+                        !endTr95){
+
+                        Tr95 = System.currentTimeMillis() - startTr95;
+                        String value = String.format("%.2f",(double)Tr95/1000);
+                        mainWindow.setValueTable("Tr95", value);
+                        endTr95 = true;
+                    }
+                    
+                    //final de contagem para 10-90%
+                    if(((valorSensor >= ((set)*0.90)+setPointAnterior && set > 0) ||
+                        (valorSensor <= setPointAnterior-(Math.abs(set)*0.9) && set < 0)) &&
+                        !endTr90){
+
+                        Tr90 = System.currentTimeMillis() - startTr90;
+                        String value = String.format("%.2f",(double)Tr90/1000);
+                        mainWindow.setValueTable("Tr90", value);
+                        endTr95 = true;
+                    }
+                    
+                    //condição caso o nível passe do valor do setPoint para baixo (undershoot) ou para cima (overshoot)
+                    if((valorSensor >= setPoint && set > 0) || (valorSensor <= setPoint && set < 0)){//overshoot
+                        
+                        //final de contagem para 0-100%
+                        if(!endTr100){
+                            Tr100 = System.currentTimeMillis() - startTime;//tempo de subida 0-100%
+                            String value = String.format("%.2f",(double)Tr100/1000);
+                            mainWindow.setValueTable("Tr100", value);
+                            endTr100 = true;
+                        }
+                        
+                        //calculo de sobressinal e de tempo de pico
+                        if((valorSensor - setPoint >= Mpcm && set > 0) || 
+                            (setPoint - valorSensor >= Mpcm && set <0) ){
+                            
+                            Tpico = System.currentTimeMillis() - startTime;//tempo do pico
+                            String value = String.format("%.2f",(double)Tpico/1000);
+                            mainWindow.setValueTable("Tpico", value);
+
+                            Mpcm = Math.abs(valorSensor - setPoint);
+                            Mp_porcentagem = (Mpcm/setPoint)*100;
+                            value = String.format("%.1f %.2f", Mpcm, Mp_porcentagem);
+                            mainWindow.setValueTable("Mp", value);
+                        }
+                    }
+                    Thread.sleep(75);
                 } catch (Exception ex) {
                     System.out.println("Erro durante analise de sistema: "+ex);
                 }
             }
-            System.out.println(_setPoint + " Tpico: "+ (double)Tpico/1000 
-                                        + " Tr100%: "+(double)Tr100/1000 
-                                        + " Tr95%: "+(double)Tr95/1000 
-                                        + "Tr90%: "+(double)Tr90/1000
-                                        + "Ts10%: "+(double)Ts10/1000
-                                        + "Ts5%: "+(double)Ts5/1000
-                                        + "Ts2%: "+(double)Ts2/1000
-                                        + "Mp% Mp: "+Mp_porcentagem+" "+Mpcm);
+//            System.out.println(_setPoint + "Tpico: "+ (double)Tpico/1000 
+//                                        + " Tr100%: "+(double)Tr100/1000 
+//                                        + " Tr95%: "+(double)Tr95/1000 
+//                                        + " Tr90%: "+(double)Tr90/1000
+//                                        + " Ts10%: "+(double)Ts10/1000
+//                                        + " Ts5%: "+(double)Ts5/1000
+//                                        + " Ts2%: "+(double)Ts2/1000
+//                                        + " Mp% Mp: "+Mp_porcentagem+" "+Mpcm);
+//            runAnalise = false;
         }
     }
 }

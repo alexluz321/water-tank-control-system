@@ -60,12 +60,56 @@ public class MainWindow extends javax.swing.JFrame {
         this.colunas.getColumn(5).setMaxWidth(0);
         this.colunas.getColumn(6).setMaxWidth(0);
         
-        model.addRow(new Object[] { "0-10cm", "5s", "3s", "20s", "10s", "14s", "40s", "30s", "20% 2cm" });
+        //Object ob = new Object[] { "0-10cm"};
+        addNewRow();
+        setValueTable("SetPoint","0-10cm");
+//        model.addRow(new Object[] { "0-10cm", "5s", "3s", "20s", "10s", "14s", "40s", "30s", "20% 2cm" });
+        this.tabelaDetalhes.setValueAt("15s", this.tabelaDetalhes.getRowCount()-1, 7);
     }
     
     //objeto model que vai ser usado para adicionar dinamicamente linhas a tabela
     public DefaultTableModel getTableModel(){
         return this.model;
+    }
+    
+    public void addNewRow(){
+        this.model.addRow(new Object[]{});
+    }
+    
+    public void setValueTable(String type, String value){
+        int column = 0;
+        switch(type){
+            case "SetPoint":
+                column = 0;
+                break;
+            case "Tpico":
+                column = 1;
+                break;
+            case "Tr100":
+                column = 2;
+                break;
+            case "Tr95":
+                column = 3;
+                break;
+            case "Tr90":
+                column = 4;
+                break;
+            case "Ts2":
+                column = 5;
+                break;
+            case "Ts5":
+                column = 6;
+                break;
+            case "Ts10":
+                column = 7;
+                break;
+            case "Mp":
+                column = 8;
+                break;
+            default:
+                break;
+        }
+        this.tabelaDetalhes.setValueAt(value, this.tabelaDetalhes.getRowCount()-1, column);
     }
     
     /**

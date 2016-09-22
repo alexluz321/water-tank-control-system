@@ -7,12 +7,7 @@ package sistemacontrole;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.jfree.data.xy.XYSeries;
 
@@ -131,7 +126,7 @@ public class SistemaControle {
             JanelaPrincipal.setVisible(true);
             leituraEscritaCanais.iniciarThreads();
             
-            SistemaControle.pid = new PID(SistemaControle.JanelaFuncao, SistemaControle.leituraEscritaCanais);
+            SistemaControle.pid = new PID(SistemaControle.JanelaFuncao, SistemaControle.leituraEscritaCanais, SistemaControle.JanelaPrincipal);
         }
     }
     

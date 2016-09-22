@@ -89,8 +89,6 @@ public class SinalSaida {
             sinalSaida = new Thread(new setSaidaMalhaAberta(tipoOnda));
         }
         
-        
-        
         sinalSaida.start();
     }
     
@@ -300,5 +298,9 @@ public class SinalSaida {
     
     public double getSinalCalculado(){
         return this.sinal_calculado;
+    }
+    
+    public double getSinalTratado(){
+        return this.sinal_tratado;
     }
 }
