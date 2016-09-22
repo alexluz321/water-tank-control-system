@@ -68,7 +68,6 @@ public class FuncoesWindow extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        BotaoGerarFuncao = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         CheckMalhaFechada = new javax.swing.JRadioButton();
         CheckMalhaAberta = new javax.swing.JRadioButton();
@@ -78,19 +77,21 @@ public class FuncoesWindow extends javax.swing.JFrame {
         parametrosPIDPanel = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         kpTextField = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
+        labelKi = new javax.swing.JLabel();
         kiTextField = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
+        labelKd = new javax.swing.JLabel();
         kdTextField = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        labelTi = new javax.swing.JLabel();
+        labelTd = new javax.swing.JLabel();
         tiTextField = new javax.swing.JTextField();
         tdTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         antiWindUpCheckBox = new javax.swing.JCheckBox();
+        BotaoGerarFuncao = new javax.swing.JButton();
+        filtroDerivativoCheckBox = new javax.swing.JCheckBox();
         pvPanel = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         pvTanque1 = new javax.swing.JRadioButton();
@@ -188,7 +189,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FuncaoAleatoria)
                             .addComponent(FuncaoDegrau))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +254,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 14, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -272,7 +273,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15))
@@ -310,17 +311,17 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
                         .addComponent(jLabel13))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(AmplitudeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGap(30, 30, 30)
                         .addComponent(AmplitudeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +362,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
                     .addComponent(Amplitude)
                     .addComponent(Offset)
                     .addComponent(Periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,19 +379,11 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Periodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(137, 137, 137))
         );
 
         jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel16.setText("Parâmetros");
-
-        BotaoGerarFuncao.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        BotaoGerarFuncao.setText("Gerar");
-        BotaoGerarFuncao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoGerarFuncaoActionPerformed(evt);
-            }
-        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -434,7 +427,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
                     .addComponent(CheckMalhaFechada)
                     .addComponent(jLabel22)
                     .addComponent(tipoControleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,7 +440,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tipoControleComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel17.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -463,18 +456,16 @@ public class FuncoesWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setText("Ki");
+        labelKi.setText("Ki");
 
-        kiTextField.setEditable(false);
         kiTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 kiTextFieldKeyTyped(evt);
             }
         });
 
-        jLabel20.setText("Kd");
+        labelKd.setText("Kd");
 
-        kdTextField.setEditable(false);
         kdTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kdTextFieldActionPerformed(evt);
@@ -489,48 +480,56 @@ public class FuncoesWindow extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel21.setText("Parâmetros PID");
 
-        jLabel24.setText("Ti");
+        labelTi.setText("Ti");
 
-        jLabel25.setText("Td");
+        labelTd.setText("Td");
 
-        tiTextField.setEditable(false);
         tiTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tiTextFieldKeyTyped(evt);
             }
         });
 
-        tdTextField.setEditable(false);
         tdTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tdTextFieldKeyTyped(evt);
             }
         });
 
+        this.labelKi.setVisible(false);
+        this.kiTextField.setVisible(false);
+        this.labelKd.setVisible(false);
+        this.kdTextField.setVisible(false);
+        this.labelTi.setVisible(false);
+        this.labelTd.setVisible(false);
+        this.tiTextField.setVisible(false);
+        this.tdTextField.setVisible(false);
+
         javax.swing.GroupLayout parametrosPIDPanelLayout = new javax.swing.GroupLayout(parametrosPIDPanel);
         parametrosPIDPanel.setLayout(parametrosPIDPanelLayout);
         parametrosPIDPanelLayout.setHorizontalGroup(
             parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parametrosPIDPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel21)
-                .addGap(46, 46, 46))
             .addGroup(parametrosPIDPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25))
-                .addGap(25, 25, 25)
-                .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(kpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(kdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(kiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tiTextField)
-                    .addComponent(tdTextField))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(parametrosPIDPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelKi)
+                            .addComponent(labelKd)
+                            .addComponent(jLabel18)
+                            .addComponent(labelTi)
+                            .addComponent(labelTd))
+                        .addGap(25, 25, 25)
+                        .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(kpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kdTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(kiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tiTextField)
+                            .addComponent(tdTextField)))
+                    .addGroup(parametrosPIDPanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel21)))
+                .addContainerGap())
         );
         parametrosPIDPanelLayout.setVerticalGroup(
             parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,21 +541,21 @@ public class FuncoesWindow extends javax.swing.JFrame {
                     .addComponent(kpTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
+                    .addComponent(labelKi)
                     .addComponent(kiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
+                    .addComponent(labelKd)
                     .addComponent(kdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tiTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel24))
+                    .addComponent(labelTi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(parametrosPIDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(labelTd))
+                .addGap(45, 45, 45))
         );
 
         jLabel23.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
@@ -569,7 +568,19 @@ public class FuncoesWindow extends javax.swing.JFrame {
             }
         });
 
-        this.antiWindUpCheckBox.setEnabled(false);
+        BotaoGerarFuncao.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        BotaoGerarFuncao.setText("Gerar");
+        BotaoGerarFuncao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoGerarFuncaoActionPerformed(evt);
+            }
+        });
+
+        filtroDerivativoCheckBox.setText("Filtro Derivativo");
+
+        this.antiWindUpCheckBox.setVisible(false);
+        this.antiWindUpCheckBox.setEnabled(true);
+        this.filtroDerivativoCheckBox.setVisible(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -577,20 +588,34 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(antiWindUpCheckBox)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel23)
-                .addGap(301, 301, 301))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(antiWindUpCheckBox)
+                            .addGap(587, 587, 587))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addGap(0, 0, 0)
+                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                    .addComponent(jLabel23)
+                                    .addGap(311, 311, 311))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                    .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(193, 193, 193)))))
+                    .addComponent(filtroDerivativoCheckBox)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(antiWindUpCheckBox)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(filtroDerivativoCheckBox)
+                .addGap(45, 45, 45)
+                .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pvPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -617,15 +642,15 @@ public class FuncoesWindow extends javax.swing.JFrame {
             .addGroup(pvPanelLayout.createSequentialGroup()
                 .addGroup(pvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pvPanelLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel26))
-                    .addGroup(pvPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(pvTanque1))
                     .addGroup(pvPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(pvTanque2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pvTanque2))
+                    .addGroup(pvPanelLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel26)))
+                .addGap(35, 35, 35))
         );
         pvPanelLayout.setVerticalGroup(
             pvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -635,7 +660,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addComponent(pvTanque1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pvTanque2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         this.pvPanel.setVisible(false);
@@ -645,75 +670,57 @@ public class FuncoesWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(151, 151, 151)
                 .addComponent(jLabel16)
                 .addGap(139, 139, 139)
                 .addComponent(jLabel17)
-                .addGap(82, 82, 82))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(199, 199, 199))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(pvPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel16)
                     .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(pvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(201, 201, 201))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(pvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
         );
 
         this.jPanel2.setVisible(false);
@@ -746,7 +753,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2.setVisible(false);
             Amplitude.setEditable(true);
             Periodo.setEditable(true);
-            Offset.setEditable(true);
+            Offset.setVisible(true);
         }
     }//GEN-LAST:event_FuncaoSenoidalStateChanged
 
@@ -757,7 +764,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2.setVisible(false);
             Amplitude.setEditable(true);
             Periodo.setEditable(true);
-            Offset.setEditable(true);
+            Offset.setVisible(true);
         }
     }//GEN-LAST:event_FuncaoQuadradaStateChanged
 
@@ -768,7 +775,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2.setVisible(false);
             Amplitude.setEditable(true);
             Periodo.setEditable(true);
-            Offset.setEditable(true);
+            Offset.setVisible(true);
         }
     }//GEN-LAST:event_FuncaoDenteSerraStateChanged
 
@@ -779,7 +786,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2.setVisible(false);
             Amplitude.setEditable(true);
             Periodo.setEditable(false);
-            Offset.setEditable(true);
+            Offset.setVisible(false);
         }
     }//GEN-LAST:event_FuncaoDegrauStateChanged
 
@@ -790,7 +797,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             jPanel2.setVisible(true);
             Amplitude.setEditable(false);
             Periodo.setEditable(false);
-            Offset.setEditable(true);
+            Offset.setVisible(true);
         }
     }//GEN-LAST:event_FuncaoAleatoriaStateChanged
 
@@ -825,50 +832,91 @@ public class FuncoesWindow extends javax.swing.JFrame {
         int tipoControle = this.tipoControleComboBox.getSelectedIndex();
         
         if(tipoControle == 0){//tipo P
-            this.kpTextField.setEditable(true);
-            this.kiTextField.setEditable(false);
-            this.kdTextField.setEditable(false);
+            this.labelKi.setVisible(false);
+            this.labelTi.setVisible(false);
+            this.labelKd.setVisible(false);
+            this.labelTd.setVisible(false);
             
-            this.tiTextField.setEditable(false);
-            this.tdTextField.setEditable(false);
-            this.antiWindUpCheckBox.setEnabled(false);
+            this.kpTextField.setVisible(true);
+            this.kiTextField.setVisible(false);
+            this.kdTextField.setVisible(false);
+            
+            this.tiTextField.setVisible(false);
+            this.tdTextField.setVisible(false);
+            this.antiWindUpCheckBox.setVisible(false);
             this.antiWindUpCheckBox.setSelected(false);
+            this.filtroDerivativoCheckBox.setVisible(false);
+            this.filtroDerivativoCheckBox.setSelected(false);
         }
         else if(tipoControle == 1){//tipo PI
-            this.kpTextField.setEditable(true);
-            this.kiTextField.setEditable(true);
-            this.kdTextField.setEditable(false);
+            this.labelKi.setVisible(true);
+            this.labelTi.setVisible(true);
+            this.labelKd.setVisible(false);
+            this.labelTd.setVisible(false);
             
-            this.tiTextField.setEditable(true);
-            this.tdTextField.setEditable(false);
-            this.antiWindUpCheckBox.setEnabled(true);
+            this.kpTextField.setVisible(true);
+            this.kiTextField.setVisible(true);
+            this.kdTextField.setVisible(false);
+            
+            this.tiTextField.setVisible(true);
+            this.tdTextField.setVisible(false);
+            
+            //filtros
+            this.antiWindUpCheckBox.setVisible(true);
+            this.filtroDerivativoCheckBox.setVisible(false);
+            this.filtroDerivativoCheckBox.setSelected(false);
         }
         else if(tipoControle == 2){//tipo PD
-            this.kpTextField.setEditable(true);
-            this.kiTextField.setEditable(false);
-            this.kdTextField.setEditable(true);
+            this.labelKi.setVisible(false);
+            this.labelTi.setVisible(false);
+            this.labelKd.setVisible(true);
+            this.labelTd.setVisible(true);
             
-            this.tiTextField.setEditable(false);
-            this.tdTextField.setEditable(true);
-            this.antiWindUpCheckBox.setEnabled(true);
+            this.kpTextField.setVisible(true);
+            this.kiTextField.setVisible(false);
+            this.kdTextField.setVisible(true);
+            
+            this.tiTextField.setVisible(false);
+            this.tdTextField.setVisible(true);
+            
+            //filtros
+            this.antiWindUpCheckBox.setVisible(false);
+            this.antiWindUpCheckBox.setSelected(false);
+            this.filtroDerivativoCheckBox.setVisible(true);
         }
         else if(tipoControle == 3){//tipo PID
-            this.kpTextField.setEditable(true);
-            this.kiTextField.setEditable(true);
-            this.kdTextField.setEditable(true);
+            this.labelKi.setVisible(true);
+            this.labelTi.setVisible(true);
+            this.labelKd.setVisible(true);
+            this.labelTd.setVisible(true);
             
-            this.tiTextField.setEditable(true);
-            this.tdTextField.setEditable(true);
-            this.antiWindUpCheckBox.setEnabled(true);
+            this.kpTextField.setVisible(true);
+            this.kiTextField.setVisible(true);
+            this.kdTextField.setVisible(true);
+            
+            this.tiTextField.setVisible(true);
+            this.tdTextField.setVisible(true);
+            
+            //filtros
+            this.antiWindUpCheckBox.setVisible(true);
+            this.filtroDerivativoCheckBox.setVisible(true);
         }
         else if(tipoControle == 4){//tipo PI-D
-            this.kpTextField.setEditable(true);
-            this.kiTextField.setEditable(true);
-            this.kdTextField.setEditable(true);
+            this.labelKi.setVisible(true);
+            this.labelTi.setVisible(true);
+            this.labelKd.setVisible(true);
+            this.labelTd.setVisible(true);
             
-            this.tiTextField.setEditable(true);
-            this.tdTextField.setEditable(true);
-            this.antiWindUpCheckBox.setEnabled(true);
+            this.kpTextField.setVisible(true);
+            this.kiTextField.setVisible(true);
+            this.kdTextField.setVisible(true);
+            
+            this.tiTextField.setVisible(true);
+            this.tdTextField.setVisible(true);
+            
+            //filtros
+            this.antiWindUpCheckBox.setVisible(true);
+            this.filtroDerivativoCheckBox.setVisible(true);
         }
     }//GEN-LAST:event_tipoControleComboBoxActionPerformed
 
@@ -1070,6 +1118,10 @@ public class FuncoesWindow extends javax.swing.JFrame {
             return -1;
         }
     }
+    
+    public boolean isDerivativoAtivado(){
+        return this.filtroDerivativoCheckBox.isSelected();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Amplitude;
@@ -1091,6 +1143,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox antiWindUpCheckBox;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JCheckBox filtroDerivativoCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1101,14 +1154,10 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1127,6 +1176,10 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JTextField kdTextField;
     private javax.swing.JTextField kiTextField;
     private javax.swing.JTextField kpTextField;
+    private javax.swing.JLabel labelKd;
+    private javax.swing.JLabel labelKi;
+    private javax.swing.JLabel labelTd;
+    private javax.swing.JLabel labelTi;
     private javax.swing.JPanel parametrosPIDPanel;
     private javax.swing.JPanel pvPanel;
     private javax.swing.JRadioButton pvTanque1;

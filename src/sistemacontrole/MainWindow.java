@@ -50,21 +50,31 @@ public class MainWindow extends javax.swing.JFrame {
         model.addColumn("Ts 5%");
         model.addColumn("Ts 10%");
         model.addColumn("Mp% Mp");
+        model.addColumn("Kp");
+        model.addColumn("Ki");
+        model.addColumn("Ti");
+        model.addColumn("Kd");
+        model.addColumn("Td");
         
         this.colunas = this.tabelaDetalhes.getColumnModel();
-        for(int i=0; i<9; i++){
+        for(int i=0; i<14; i++){
             this.colunas.getColumn(i).setMinWidth(0);
         }
         this.colunas.getColumn(3).setMaxWidth(0);
         this.colunas.getColumn(4).setMaxWidth(0);
         this.colunas.getColumn(5).setMaxWidth(0);
         this.colunas.getColumn(6).setMaxWidth(0);
+        this.colunas.getColumn(9).setMaxWidth(0);
+        this.colunas.getColumn(10).setMaxWidth(0);
+        this.colunas.getColumn(11).setMaxWidth(0);
+        this.colunas.getColumn(12).setMaxWidth(0);
+        this.colunas.getColumn(13).setMaxWidth(0);
         
         //Object ob = new Object[] { "0-10cm"};
-        addNewRow();
-        setValueTable("SetPoint","0-10cm");
+        //addNewRow();
+        //setValueTable("SetPoint","0-10cm");
 //        model.addRow(new Object[] { "0-10cm", "5s", "3s", "20s", "10s", "14s", "40s", "30s", "20% 2cm" });
-        this.tabelaDetalhes.setValueAt("15s", this.tabelaDetalhes.getRowCount()-1, 7);
+        //this.tabelaDetalhes.setValueAt("15s", this.tabelaDetalhes.getRowCount()-1, 7);
     }
     
     //objeto model que vai ser usado para adicionar dinamicamente linhas a tabela
@@ -105,6 +115,21 @@ public class MainWindow extends javax.swing.JFrame {
                 break;
             case "Mp":
                 column = 8;
+                break;
+            case "Kp":
+                column = 9;
+                break;
+            case "Ki":
+                column = 10;
+                break;
+            case "Ti":
+                column = 11;
+                break;
+            case "Kd":
+                column = 12;
+                break;
+            case "Td":
+                column = 13;
                 break;
             default:
                 break;
@@ -151,16 +176,20 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaDetalhes = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        tabelaSetPoint = new javax.swing.JCheckBox();
-        tabelaMp = new javax.swing.JCheckBox();
-        tabelaTs10 = new javax.swing.JCheckBox();
         tabelaTr100 = new javax.swing.JCheckBox();
         tabelaTr95 = new javax.swing.JCheckBox();
         tabelaTr90 = new javax.swing.JCheckBox();
         tabelaTpico = new javax.swing.JCheckBox();
         tabelaTs2 = new javax.swing.JCheckBox();
         tabelaTs5 = new javax.swing.JCheckBox();
+        tabelaKp = new javax.swing.JCheckBox();
+        tabelaKi = new javax.swing.JCheckBox();
+        tabelaTi = new javax.swing.JCheckBox();
+        tabelaKd = new javax.swing.JCheckBox();
+        tabelaTs10 = new javax.swing.JCheckBox();
+        tabelaMp = new javax.swing.JCheckBox();
+        tabelaSetPoint = new javax.swing.JCheckBox();
+        tabelaTd = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -420,51 +449,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(894, 19, -1, -1));
 
-        tabelaSetPoint.setSelected(true);
-        tabelaSetPoint.setText("SetPoint");
-        tabelaSetPoint.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabelaSetPointStateChanged(evt);
-            }
-        });
-
-        tabelaMp.setSelected(true);
-        tabelaMp.setText("Mp% Mp");
-        tabelaMp.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabelaMpStateChanged(evt);
-            }
-        });
-
-        tabelaTs10.setSelected(true);
-        tabelaTs10.setText("Ts 10%");
-        tabelaTs10.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabelaTs10StateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabelaSetPoint)
-            .addComponent(tabelaMp)
-            .addComponent(tabelaTs10)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(tabelaSetPoint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabelaMp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tabelaTs10)
-                .addGap(0, 22, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 440, -1, -1));
-
         tabelaTr100.setSelected(true);
         tabelaTr100.setText("Tr 100%");
         tabelaTr100.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -519,6 +503,73 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(tabelaTs5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 470, -1, -1));
+
+        tabelaKp.setText("Kp");
+        tabelaKp.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaKpStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaKp, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 500, -1, -1));
+
+        tabelaKi.setText("Ki");
+        tabelaKi.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaKiStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaKi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 500, -1, -1));
+
+        tabelaTi.setText("Ti");
+        tabelaTi.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTiStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTi, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 500, -1, -1));
+
+        tabelaKd.setText("Kd");
+        tabelaKd.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaKdStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaKd, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 530, -1, -1));
+
+        tabelaTs10.setSelected(true);
+        tabelaTs10.setText("Ts 10%");
+        tabelaTs10.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTs10StateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTs10, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 470, -1, -1));
+
+        tabelaMp.setSelected(true);
+        tabelaMp.setText("Mp% Mp");
+        tabelaMp.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaMpStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 500, -1, -1));
+
+        tabelaSetPoint.setSelected(true);
+        tabelaSetPoint.setText("SetPoint");
+        tabelaSetPoint.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaSetPointStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaSetPoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 440, -1, -1));
+
+        tabelaTd.setText("Td");
+        tabelaTd.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabelaTdStateChanged(evt);
+            }
+        });
+        getContentPane().add(tabelaTd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 530, -1, -1));
 
         jMenu1.setText("Menu");
 
@@ -618,16 +669,6 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaTr100ActionPerformed
 
-    private void tabelaSetPointStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaSetPointStateChanged
-        if(this.tabelaSetPoint.isSelected()){
-            this.colunas.getColumn(0).setMaxWidth(200);
-            this.colunas.getColumn(0).setPreferredWidth(90);
-        }
-        else{
-            this.colunas.getColumn(0).setMaxWidth(0);
-        }
-    }//GEN-LAST:event_tabelaSetPointStateChanged
-
     private void tabelaTr100StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTr100StateChanged
         if(this.tabelaTr100.isSelected()){
             this.colunas.getColumn(2).setMaxWidth(200);
@@ -678,6 +719,16 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaTs5StateChanged
 
+    private void tabelaTpicoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTpicoStateChanged
+        if(this.tabelaTpico.isSelected()){
+            this.colunas.getColumn(1).setMaxWidth(200);
+            this.colunas.getColumn(1).setPreferredWidth(75);
+        }
+        else{
+            this.colunas.getColumn(1).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTpicoStateChanged
+
     private void tabelaTs10StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTs10StateChanged
         if(this.tabelaTs10.isSelected()){
             this.colunas.getColumn(7).setMaxWidth(200);
@@ -698,15 +749,65 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaMpStateChanged
 
-    private void tabelaTpicoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTpicoStateChanged
-        if(this.tabelaTpico.isSelected()){
-            this.colunas.getColumn(1).setMaxWidth(200);
-            this.colunas.getColumn(1).setPreferredWidth(75);
+    private void tabelaSetPointStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaSetPointStateChanged
+        if(this.tabelaSetPoint.isSelected()){
+            this.colunas.getColumn(0).setMaxWidth(200);
+            this.colunas.getColumn(0).setPreferredWidth(90);
         }
         else{
-            this.colunas.getColumn(1).setMaxWidth(0);
+            this.colunas.getColumn(0).setMaxWidth(0);
         }
-    }//GEN-LAST:event_tabelaTpicoStateChanged
+    }//GEN-LAST:event_tabelaSetPointStateChanged
+
+    private void tabelaKpStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaKpStateChanged
+        if(this.tabelaKp.isSelected()){
+            this.colunas.getColumn(9).setMaxWidth(200);
+            this.colunas.getColumn(9).setPreferredWidth(70);
+        }
+        else{
+            this.colunas.getColumn(9).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaKpStateChanged
+
+    private void tabelaKiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaKiStateChanged
+        if(this.tabelaKi.isSelected()){
+            this.colunas.getColumn(10).setMaxWidth(200);
+            this.colunas.getColumn(10).setPreferredWidth(70);
+        }
+        else{
+            this.colunas.getColumn(10).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaKiStateChanged
+
+    private void tabelaTiStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTiStateChanged
+        if(this.tabelaTi.isSelected()){
+            this.colunas.getColumn(11).setMaxWidth(200);
+            this.colunas.getColumn(11).setPreferredWidth(70);
+        }
+        else{
+            this.colunas.getColumn(11).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTiStateChanged
+
+    private void tabelaKdStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaKdStateChanged
+        if(this.tabelaKd.isSelected()){
+            this.colunas.getColumn(12).setMaxWidth(200);
+            this.colunas.getColumn(12).setPreferredWidth(70);
+        }
+        else{
+            this.colunas.getColumn(12).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaKdStateChanged
+
+    private void tabelaTdStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabelaTdStateChanged
+        if(this.tabelaTd.isSelected()){
+            this.colunas.getColumn(13).setMaxWidth(200);
+            this.colunas.getColumn(13).setPreferredWidth(70);
+        }
+        else{
+            this.colunas.getColumn(13).setMaxWidth(0);
+        }
+    }//GEN-LAST:event_tabelaTdStateChanged
     public void addLerListener(ActionListener e){
         this.BotaoLer.addActionListener(e);
     }
@@ -856,7 +957,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     protected javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -864,8 +964,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu logMenuItem;
     private javax.swing.JButton pararSinalBt;
     private javax.swing.JTable tabelaDetalhes;
+    private javax.swing.JCheckBox tabelaKd;
+    private javax.swing.JCheckBox tabelaKi;
+    private javax.swing.JCheckBox tabelaKp;
     private javax.swing.JCheckBox tabelaMp;
     private javax.swing.JCheckBox tabelaSetPoint;
+    private javax.swing.JCheckBox tabelaTd;
+    private javax.swing.JCheckBox tabelaTi;
     private javax.swing.JCheckBox tabelaTpico;
     private javax.swing.JCheckBox tabelaTr100;
     private javax.swing.JCheckBox tabelaTr90;

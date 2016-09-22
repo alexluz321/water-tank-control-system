@@ -125,7 +125,7 @@ public class SinalSaida {
                         System.out.println("Nenhuma onda selecionada.");
                         break;
                     }
-                    SinalSaida.pid.setSetPoint(getSinalCalculado());
+                    SinalSaida.pid.setSetPoint(getSinalCalculado(), true);
                     setSinalCalculado(SinalSaida.pid.getValorCalculado());
                     checarTravas();
                     enviarBomba();
@@ -184,6 +184,7 @@ public class SinalSaida {
             while(runSinal){
                 try{
                     setSinalCalculado(0);
+                    SinalSaida.pid.setSetPoint(0, false);
                     checarTravas();
                     enviarBomba();
                     Thread.sleep(100);

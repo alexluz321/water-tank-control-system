@@ -71,6 +71,7 @@ public class PID {
         this.I = 0;
         this.D = 0;
         this.D2 = 0;
+        
     }
     
     public void calcularP(){
@@ -143,6 +144,10 @@ public class PID {
         if(this.funcoesWindow.isAntiWindUpActive()){
             runAntiWindUp();
         }
+        //se o filtro derivativo estiver selecionado
+        if(this.funcoesWindow.isDerivativoAtivado()){
+            runFiltroDerivativo();
+        }
         
         //aplicar controle
         switch(this.tipoControle){
@@ -194,15 +199,67 @@ public class PID {
     }
     
     //aplica o setpoint do controle
-    public void setSetPoint(double setPoint){
+    public void setSetPoint(double setPoint, boolean newRun){
         if(setPoint != this.setPoint){
             runAnalise = false;
             this.setPointAnterior = this.setPoint;
             this.setPoint = setPoint;
             //calcular analise do sistema para novo valor de set point
-            runAnalise = true;
-            mainWindow.addNewRow();
-            runAnaliseSistema();
+            if(newRun){
+                runAnalise = true;
+                mainWindow.addNewRow();
+                //adicionar ao gráfico os valores de Kp, Ki, Kd, Ti e Td do controlador atual
+                mainWindow.setValueTable("Kp", String.valueOf(this.kp));
+                switch(this.tipoControle){
+                    case 1://controle tipo PI
+                        if(this.isKi){
+                            mainWindow.setValueTable("Ki", String.valueOf(this.ki));
+                        }
+                        else{
+                            mainWindow.setValueTable("Ti", String.valueOf(this.ti));
+                        }
+                        break;
+                    case 2://controle tipo PD
+                        if(this.isKd){
+                            mainWindow.setValueTable("Kd", String.valueOf(this.kd));
+                        }
+                        else{
+                            mainWindow.setValueTable("Td", String.valueOf(this.td));
+                        }
+                        break;
+                    case 3://controle tipo PID
+                        if(this.isKi){
+                            mainWindow.setValueTable("Ki", String.valueOf(this.ki));
+                        }
+                        else{
+                            mainWindow.setValueTable("Ti", String.valueOf(this.ti));
+                        }
+                        if(this.isKd){
+                            mainWindow.setValueTable("Kd", String.valueOf(this.kd));
+                        }
+                        else{
+                            mainWindow.setValueTable("Td", String.valueOf(this.td));
+                        }
+                        break;
+                    case 4://controle tipo PI-D
+                        if(this.isKi){
+                            mainWindow.setValueTable("Ki", String.valueOf(this.ki));
+                        }
+                        else{
+                            mainWindow.setValueTable("Ti", String.valueOf(this.ti));
+                        }
+                        if(this.isKd){
+                            mainWindow.setValueTable("Kd", String.valueOf(this.kd));
+                        }
+                        else{
+                            mainWindow.setValueTable("Td", String.valueOf(this.td));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                runAnaliseSistema();
+            }
         }
     }
     
@@ -213,15 +270,25 @@ public class PID {
     
     //aplicar filtro wind up ao sinal de controle
     public void runAntiWindUp(){
-//        this.saturacao = (this.sinal_calculado - travasWindUp(this.sinal_calculado)) / this.antiWindUpValor;
-//        this.I = this.erroSoma + this.sampleTime*(this.ki * this.erro - this.kp * this.saturacao);
-//        this.erroSoma += (this.ki * this.erro - this.kp * this.saturacao) * this.sampleTime;
-
+        
         if(this.I > 4){
             this.I = 4;
         }
         else if(this.I < -4){
             this.I = -4;
+        }
+    }
+    
+    //aplicar filtro derivativo
+    public void runFiltroDerivativo(){
+        double gama = 0.1;
+        switch(this.tipoControle){
+            case 3:
+                this.D = this.D/(1 + gama*(this.D/(this.kp*this.erro)));
+                break;
+            default:
+                this.D = this.D/(1 + (gama*this.D));
+                break;
         }
     }
     
@@ -234,6 +301,13 @@ public class PID {
     //tempo de pico, tempo de acomodação(2%, 5% e 10%)
     public void runAnaliseSistema(){
         Thread t = new Thread(new AnaliseSistema());
+        while(t.isAlive()){
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                System.out.println("erro funcao runAnaliseSistema");
+            }
+        }
         t.start();
     }
     
@@ -258,41 +332,44 @@ public class PID {
                     valorSensor = getSensorValor();
                     
                     //calculo de 2% de acomodação
-                    if(valorSensor <= setPoint*1.02 || valorSensor >= setPoint*0.98){
+                    if(valorSensor <= setPoint*1.02 && valorSensor >= setPoint*0.98){
                         if(!endTs2){
                             Ts2 = System.currentTimeMillis() - startTime;
-                            String value = String.format("%.2f",(double)Ts2/1000);
+                            String value = String.format("%.2fs",(double)Ts2/1000);
                             mainWindow.setValueTable("Ts2", value);
                             endTs2 = true;
                         }
                     }
                     else{
+                        mainWindow.setValueTable("Ts2", "");
                         endTs2 = false;
                     }
 
                     //calculo de 5% de acomodação
-                    if(valorSensor <= setPoint*1.05 || valorSensor >= setPoint*0.95){
+                    if(valorSensor <= setPoint*1.05 && valorSensor >= setPoint*0.95){
                         if(!endTs5){
                             Ts5 = System.currentTimeMillis() - startTime;
-                            String value = String.format("%.2f",(double)Ts5/1000);
+                            String value = String.format("%.2fs",(double)Ts5/1000);
                             mainWindow.setValueTable("Ts5", value);
                             endTs5 = true;
                         }
                     }
                     else{
+                        mainWindow.setValueTable("Ts5", "");
                         endTs5 = false;
                     }
 
                     //calculo de 10% de acomodação
-                    if(valorSensor <= setPoint*1.1 || valorSensor >= setPoint*0.9){
-                        if(!endTs2){
+                    if(valorSensor <= setPoint*1.1 && valorSensor >= setPoint*0.9){
+                        if(!endTs10){
                             Ts10 = System.currentTimeMillis() - startTime;
-                            String value = String.format("%.2f",(double)Ts10/1000);
+                            String value = String.format("%.2fs",(double)Ts10/1000);
                             mainWindow.setValueTable("Ts10", value);
                             endTs10 = true;
                         }
                     }
                     else{
+                        mainWindow.setValueTable("Ts10", "");
                         endTs10 = false;
                     }
                     
@@ -320,7 +397,7 @@ public class PID {
                         !endTr95){
 
                         Tr95 = System.currentTimeMillis() - startTr95;
-                        String value = String.format("%.2f",(double)Tr95/1000);
+                        String value = String.format("%.2fs",(double)Tr95/1000);
                         mainWindow.setValueTable("Tr95", value);
                         endTr95 = true;
                     }
@@ -331,9 +408,9 @@ public class PID {
                         !endTr90){
 
                         Tr90 = System.currentTimeMillis() - startTr90;
-                        String value = String.format("%.2f",(double)Tr90/1000);
+                        String value = String.format("%.2fs",(double)Tr90/1000);
                         mainWindow.setValueTable("Tr90", value);
-                        endTr95 = true;
+                        endTr90 = true;
                     }
                     
                     //condição caso o nível passe do valor do setPoint para baixo (undershoot) ou para cima (overshoot)
@@ -342,22 +419,22 @@ public class PID {
                         //final de contagem para 0-100%
                         if(!endTr100){
                             Tr100 = System.currentTimeMillis() - startTime;//tempo de subida 0-100%
-                            String value = String.format("%.2f",(double)Tr100/1000);
+                            String value = String.format("%.2fs",(double)Tr100/1000);
                             mainWindow.setValueTable("Tr100", value);
                             endTr100 = true;
                         }
                         
                         //calculo de sobressinal e de tempo de pico
-                        if((valorSensor - setPoint >= Mpcm && set > 0) || 
-                            (setPoint - valorSensor >= Mpcm && set <0) ){
+                        if((valorSensor - setPoint >= Mpcm && set > 0) ||
+                            (setPoint - valorSensor >= Mpcm && set < 0) ){
                             
                             Tpico = System.currentTimeMillis() - startTime;//tempo do pico
-                            String value = String.format("%.2f",(double)Tpico/1000);
+                            String value = String.format("%.2fs",(double)Tpico/1000);
                             mainWindow.setValueTable("Tpico", value);
 
                             Mpcm = Math.abs(valorSensor - setPoint);
                             Mp_porcentagem = (Mpcm/setPoint)*100;
-                            value = String.format("%.1f %.2f", Mpcm, Mp_porcentagem);
+                            value = String.format("%.2f%% - %.2fcm", Mp_porcentagem, Mpcm);
                             mainWindow.setValueTable("Mp", value);
                         }
                     }
