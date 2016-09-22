@@ -185,9 +185,6 @@ public class SistemaControle {
             else if(SistemaControle.JanelaFuncao.isMalhaFechada() && SistemaControle.JanelaFuncao.theresError){
                 JanelaFuncao.mostrarErro();
             }
-            
-      
-
         }
     }
     

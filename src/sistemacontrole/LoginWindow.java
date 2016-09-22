@@ -104,7 +104,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        checkOff.setText("Offline");
+        checkOff.setText("Simulação");
         checkOff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkOffActionPerformed(evt);

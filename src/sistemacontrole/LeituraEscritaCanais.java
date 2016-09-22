@@ -25,7 +25,8 @@ public class LeituraEscritaCanais {
     //Views a serem controladas
     private LoginWindow loginWindow;
     private MainWindow mainWindow;
-
+    private Simulacao plantaSimulacao;
+    
     //cria conexao
     private QuanserClient quanserClient;
     
@@ -59,6 +60,7 @@ public class LeituraEscritaCanais {
         //setar views
         this.loginWindow = loginWindow;
         this.mainWindow = mainWindow;
+        this.plantaSimulacao = new Simulacao();
         
         //checar se foi login offline
         this.isOffline = this.loginWindow.isOffline();
@@ -73,7 +75,7 @@ public class LeituraEscritaCanais {
             }
         }
         else{
-            JOptionPane.showMessageDialog(this.loginWindow,"Planta não conectada!","Atenção!", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this.loginWindow,"Planta não conectada! \nModo de simulação ativado.","Atenção!", JOptionPane.WARNING_MESSAGE);
             this.mainWindow.setTitle(this.mainWindow.getTitle() + " (Offline)");
         }
         
@@ -124,7 +126,7 @@ public class LeituraEscritaCanais {
     }
     
     //classe que vai ficar capturando dados dos canais a cada 1ms
-    class getCanaisValores extends Thread{
+    public class getCanaisValores extends Thread{
         private double valor;
         private int canal;
         @Override
@@ -145,12 +147,15 @@ public class LeituraEscritaCanais {
                         }
                     }
                     else{
-                        for(int i=0; i<7; ++i){
-                            canal = i;
-                            valor = 0;
-                            setCanalLeitura(canal, valor);
-                            Thread.sleep(7);
-                        }
+                        setCanalLeitura(0, plantaSimulacao.getNivelTanque1());
+                        setCanalLeitura(1, plantaSimulacao.getNivelTanque2());
+                        Thread.sleep(50);
+//                        for(int i=2; i<7; ++i){
+//                            canal = i;
+//                            valor = 0;
+//                            setCanalLeitura(canal, valor);
+//                            Thread.sleep(7);
+//                        }
                     }
                     Thread.sleep(50);
                 } catch (Exception e){
@@ -227,6 +232,11 @@ public class LeituraEscritaCanais {
 //            }
 //            isBusy = false;
         }
+        else{
+            plantaSimulacao.niveltank1Discreto(sinal_tratado_trava);
+            plantaSimulacao.niveltank2Discreto();
+        }
+        
         this.sinal_tratado.add(this.tempoGlobal, sinal_tratado_trava);
         this.sinal_calculado.add(this.tempoGlobal, sinal_calculado);
         

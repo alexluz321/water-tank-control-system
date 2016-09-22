@@ -187,7 +187,7 @@
     </Container>
     <Component class="javax.swing.JCheckBox" name="checkOff">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Offline"/>
+        <Property name="text" type="java.lang.String" value="Simula&#xe7;&#xe3;o"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkOffActionPerformed"/>
