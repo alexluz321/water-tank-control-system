@@ -51,7 +51,12 @@ public class PID {
     
     //anti windup variaveis
     private double saturacao;
-//    private double antiWindUpValor;
+    
+    //PV do controlador
+    private int PV;
+    
+    //variavel se e Mestre/Escravo
+    private boolean isEscravo;
             
     PID(FuncoesWindow funcoesWindow, LeituraEscritaCanais leituraEscrita, MainWindow mainWindow){
         this.funcoesWindow = funcoesWindow;
@@ -117,7 +122,7 @@ public class PID {
     }
     
     public void calcularErros(){
-        double leituraCanal = this.leituraEscrita.getCanalLeitura(this.funcoesWindow.getPV());
+        double leituraCanal = this.leituraEscrita.getCanalLeitura(this.PV);
         this.erro = this.setPoint - leituraCanal;
         //System.out.println(this.erro + " "+leituraCanal);
         this.erroSoma += this.erro;
@@ -175,6 +180,7 @@ public class PID {
     //setar o tipo de controle utilizado
     public void setTipoControle(int tipoControle){
         this.tipoControle = tipoControle;
+        
     }
     
     //setar os valores de kp, ki (ou ti) e kd (ou td)
@@ -198,6 +204,14 @@ public class PID {
         }
     }
     
+    public void setEscravo(boolean isEscravo){
+        this.isEscravo = isEscravo;
+    }
+    
+    public void setPV(int PV){
+        this.PV = PV;
+    }
+    
     //aplica o setpoint do controle
     public void setSetPoint(double setPoint, boolean newRun){
         if(setPoint != this.setPoint){
@@ -205,7 +219,7 @@ public class PID {
             this.setPointAnterior = this.setPoint;
             this.setPoint = setPoint;
             //calcular analise do sistema para novo valor de set point
-            if(newRun){
+            if(newRun && !this.isEscravo){
                 runAnalise = true;
                 mainWindow.addNewRow();
                 //adicionar ao gráfico os valores de Kp, Ki, Kd, Ti e Td do controlador atual
@@ -443,15 +457,6 @@ public class PID {
                     System.out.println("Erro durante analise de sistema: "+ex);
                 }
             }
-//            System.out.println(_setPoint + "Tpico: "+ (double)Tpico/1000 
-//                                        + " Tr100%: "+(double)Tr100/1000 
-//                                        + " Tr95%: "+(double)Tr95/1000 
-//                                        + " Tr90%: "+(double)Tr90/1000
-//                                        + " Ts10%: "+(double)Ts10/1000
-//                                        + " Ts5%: "+(double)Ts5/1000
-//                                        + " Ts2%: "+(double)Ts2/1000
-//                                        + " Mp% Mp: "+Mp_porcentagem+" "+Mpcm);
-//            runAnalise = false;
         }
     }
 }

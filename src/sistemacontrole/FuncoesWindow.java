@@ -36,6 +36,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
         variaveisControleGroup = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         FuncaoQuadrada = new javax.swing.JRadioButton();
@@ -96,10 +97,28 @@ public class FuncoesWindow extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         pvTanque1 = new javax.swing.JRadioButton();
         pvTanque2 = new javax.swing.JRadioButton();
+        parametrosPIDPanel1 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        kpTextField1 = new javax.swing.JTextField();
+        labelKi1 = new javax.swing.JLabel();
+        kiTextField1 = new javax.swing.JTextField();
+        labelKd1 = new javax.swing.JLabel();
+        kdTextField1 = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        labelTi1 = new javax.swing.JLabel();
+        labelTd1 = new javax.swing.JLabel();
+        tiTextField1 = new javax.swing.JTextField();
+        tdTextField1 = new javax.swing.JTextField();
+        jPanelEsquemaControles = new javax.swing.JPanel();
+        tipoControleComboBox1 = new javax.swing.JComboBox<>();
+        jLabel25 = new javax.swing.JLabel();
+        radioButtonCascata = new javax.swing.JRadioButton();
+        radioButtonSimples = new javax.swing.JRadioButton();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 740));
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(850, 740));
+        setPreferredSize(new java.awt.Dimension(940, 718));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel1.setText("Tipo de Sinal");
@@ -307,21 +326,22 @@ public class FuncoesWindow extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel13))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(44, 44, 44)
+                                .addComponent(jLabel13))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(AmplitudeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(AmplitudeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(AmplitudeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(AmplitudeMaxima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel10)))
                 .addGap(20, 20, 20))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel10)
-                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,7 +416,6 @@ public class FuncoesWindow extends javax.swing.JFrame {
         });
 
         tipoMalha.add(CheckMalhaAberta);
-        CheckMalhaAberta.setSelected(true);
         CheckMalhaAberta.setText("Malha Aberta");
         CheckMalhaAberta.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -594,14 +613,11 @@ public class FuncoesWindow extends javax.swing.JFrame {
                             .addComponent(antiWindUpCheckBox)
                             .addGap(587, 587, 587))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                            .addGap(0, 0, 0)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(jLabel23)
-                                    .addGap(311, 311, 311))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(193, 193, 193)))))
+                            .addComponent(jLabel23)
+                            .addGap(311, 311, 311))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                            .addComponent(BotaoGerarFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(193, 193, 193)))
                     .addComponent(filtroDerivativoCheckBox)))
         );
         jPanel6Layout.setVerticalGroup(
@@ -634,22 +650,22 @@ public class FuncoesWindow extends javax.swing.JFrame {
 
         variaveisControleGroup.add(pvTanque2);
         pvTanque2.setText("Tanque 2");
+        pvTanque2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pvTanque2StateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout pvPanelLayout = new javax.swing.GroupLayout(pvPanel);
         pvPanel.setLayout(pvPanelLayout);
         pvPanelLayout.setHorizontalGroup(
             pvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pvPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(pvPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pvPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pvTanque1))
-                    .addGroup(pvPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pvTanque2))
-                    .addGroup(pvPanelLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel26)))
+                    .addComponent(pvTanque2)
+                    .addComponent(pvTanque1)
+                    .addComponent(jLabel26))
                 .addGap(35, 35, 35))
         );
         pvPanelLayout.setVerticalGroup(
@@ -663,7 +679,181 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        parametrosPIDPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel19.setText("Kp");
+
+        kpTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kpTextField1KeyTyped(evt);
+            }
+        });
+
+        labelKi1.setText("Ki");
+
+        kiTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kiTextField1KeyTyped(evt);
+            }
+        });
+
+        labelKd1.setText("Kd");
+
+        kdTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kdTextField1ActionPerformed(evt);
+            }
+        });
+        kdTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kdTextField1KeyTyped(evt);
+            }
+        });
+
+        jLabel24.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel24.setText("Parâmetros PID 2");
+
+        labelTi1.setText("Ti");
+
+        labelTd1.setText("Td");
+
+        tiTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tiTextField1KeyTyped(evt);
+            }
+        });
+
+        tdTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tdTextField1KeyTyped(evt);
+            }
+        });
+
+        this.labelKi1.setVisible(false);
+        this.kiTextField1.setVisible(false);
+        this.labelKd1.setVisible(false);
+        this.kdTextField1.setVisible(false);
+        this.labelTi1.setVisible(false);
+        this.labelTd1.setVisible(false);
+        this.tiTextField1.setVisible(false);
+        this.tdTextField1.setVisible(false);
+
+        javax.swing.GroupLayout parametrosPIDPanel1Layout = new javax.swing.GroupLayout(parametrosPIDPanel1);
+        parametrosPIDPanel1.setLayout(parametrosPIDPanel1Layout);
+        parametrosPIDPanel1Layout.setHorizontalGroup(
+            parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(parametrosPIDPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelKi1)
+                    .addComponent(labelKd1)
+                    .addComponent(jLabel19)
+                    .addComponent(labelTi1)
+                    .addComponent(labelTd1))
+                .addGap(25, 25, 25)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(kpTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kdTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(kiTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tiTextField1)
+                    .addComponent(tdTextField1))
+                .addGap(31, 31, 31))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parametrosPIDPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addGap(29, 29, 29))
+        );
+        parametrosPIDPanel1Layout.setVerticalGroup(
+            parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(parametrosPIDPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel24)
+                .addGap(5, 5, 5)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(kpTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelKi1)
+                    .addComponent(kiTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelKd1)
+                    .addComponent(kdTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tiTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTi1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(parametrosPIDPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tdTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTd1))
+                .addGap(45, 45, 45))
+        );
+
+        jPanelEsquemaControles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tipoControleComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "P", "PI", "PD", "PID", "PI-D" }));
+        tipoControleComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoControleComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel25.setText("Tipo de Controle 2");
+
+        buttonGroup1.add(radioButtonCascata);
+        radioButtonCascata.setText("Cascata");
+        radioButtonCascata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonCascataActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(radioButtonSimples);
+        radioButtonSimples.setSelected(true);
+        radioButtonSimples.setText("Simples");
+        radioButtonSimples.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonSimplesActionPerformed(evt);
+            }
+        });
+
+        this.tipoControleComboBox1.setVisible(false);
+        this.jLabel25.setVisible(false);
+
+        javax.swing.GroupLayout jPanelEsquemaControlesLayout = new javax.swing.GroupLayout(jPanelEsquemaControles);
+        jPanelEsquemaControles.setLayout(jPanelEsquemaControlesLayout);
+        jPanelEsquemaControlesLayout.setHorizontalGroup(
+            jPanelEsquemaControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelEsquemaControlesLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanelEsquemaControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(radioButtonSimples)
+                    .addComponent(radioButtonCascata)
+                    .addComponent(jLabel25)
+                    .addComponent(tipoControleComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
+        );
+        jPanelEsquemaControlesLayout.setVerticalGroup(
+            jPanelEsquemaControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelEsquemaControlesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radioButtonSimples)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(radioButtonCascata)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tipoControleComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9))
+        );
+
+        jLabel20.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        jLabel20.setText("Esquema de Controladores");
+
         this.pvPanel.setVisible(false);
+        this.jPanelEsquemaControles.setVisible(false);
+        this.jLabel20.setVisible(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -676,7 +866,9 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addComponent(jLabel16)
                 .addGap(139, 139, 139)
                 .addComponent(jLabel17)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel20)
+                .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -692,7 +884,11 @@ public class FuncoesWindow extends javax.swing.JFrame {
                             .addComponent(pvPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(parametrosPIDPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelEsquemaControles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -702,7 +898,9 @@ public class FuncoesWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel17)
+                        .addComponent(jLabel20)))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -713,10 +911,14 @@ public class FuncoesWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanelEsquemaControles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(parametrosPIDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(parametrosPIDPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pvPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -726,6 +928,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
         this.jPanel2.setVisible(false);
         this.jPanel3.setVisible(false);
         this.parametrosPIDPanel.setVisible(false);
+        this.parametrosPIDPanel1.setVisible(false);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -821,6 +1024,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
             this.parametrosPIDPanel.setVisible(false);
             this.jLabel22.setVisible(false);
             this.tipoControleComboBox.setVisible(false);
+            this.pvPanel.setVisible(false);
         }
     }//GEN-LAST:event_CheckMalhaAbertaStateChanged
 
@@ -949,8 +1153,136 @@ public class FuncoesWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_antiWindUpCheckBoxActionPerformed
 
     private void pvTanque1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pvTanque1ActionPerformed
-        // TODO add your handling code here:
+        if(this.pvTanque1.isSelected()){
+            this.parametrosPIDPanel1.setVisible(false);
+        }
     }//GEN-LAST:event_pvTanque1ActionPerformed
+
+    private void kpTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kpTextField1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kpTextField1KeyTyped
+
+    private void kiTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kiTextField1KeyTyped
+        this.tiTextField1.setText("NaN");
+    }//GEN-LAST:event_kiTextField1KeyTyped
+
+    private void kdTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kdTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kdTextField1ActionPerformed
+
+    private void kdTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kdTextField1KeyTyped
+        this.tdTextField1.setText("NaN");
+    }//GEN-LAST:event_kdTextField1KeyTyped
+
+    private void tiTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tiTextField1KeyTyped
+        this.kiTextField1.setText("NaN");
+    }//GEN-LAST:event_tiTextField1KeyTyped
+
+    private void tdTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tdTextField1KeyTyped
+        this.kdTextField1.setText("NaN");
+    }//GEN-LAST:event_tdTextField1KeyTyped
+
+    private void tipoControleComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoControleComboBox1ActionPerformed
+
+        int tipoControle = this.tipoControleComboBox1.getSelectedIndex();
+        
+        if(tipoControle == 0){//tipo P
+            this.labelKi1.setVisible(false);
+            this.labelTi1.setVisible(false);
+            this.labelKd1.setVisible(false);
+            this.labelTd1.setVisible(false);
+            
+            this.kpTextField1.setVisible(true);
+            this.kiTextField1.setVisible(false);
+            this.kdTextField1.setVisible(false);
+            
+            this.tiTextField1.setVisible(false);
+            this.tdTextField1.setVisible(false);
+        }
+        else if(tipoControle == 1){//tipo PI
+            this.labelKi1.setVisible(true);
+            this.labelTi1.setVisible(true);
+            this.labelKd1.setVisible(false);
+            this.labelTd1.setVisible(false);
+            
+            this.kpTextField1.setVisible(true);
+            this.kiTextField1.setVisible(true);
+            this.kdTextField1.setVisible(false);
+            
+            this.tiTextField1.setVisible(true);
+            this.tdTextField1.setVisible(false);
+            
+        }
+        else if(tipoControle == 2){//tipo PD
+            this.labelKi1.setVisible(false);
+            this.labelTi1.setVisible(false);
+            this.labelKd1.setVisible(true);
+            this.labelTd1.setVisible(true);
+            
+            this.kpTextField1.setVisible(true);
+            this.kiTextField1.setVisible(false);
+            this.kdTextField1.setVisible(true);
+            
+            this.tiTextField1.setVisible(false);
+            this.tdTextField1.setVisible(true);
+            
+        }
+        else if(tipoControle == 3){//tipo PID
+            this.labelKi1.setVisible(true);
+            this.labelTi1.setVisible(true);
+            this.labelKd1.setVisible(true);
+            this.labelTd1.setVisible(true);
+            
+            this.kpTextField1.setVisible(true);
+            this.kiTextField1.setVisible(true);
+            this.kdTextField1.setVisible(true);
+            
+            this.tiTextField1.setVisible(true);
+            this.tdTextField1.setVisible(true);
+                      
+        }
+        else if(tipoControle == 4){//tipo PI-D
+            this.labelKi1.setVisible(true);
+            this.labelTi1.setVisible(true);
+            this.labelKd1.setVisible(true);
+            this.labelTd1.setVisible(true);
+            
+            this.kpTextField1.setVisible(true);
+            this.kiTextField1.setVisible(true);
+            this.kdTextField1.setVisible(true);
+            
+            this.tiTextField1.setVisible(true);
+            this.tdTextField1.setVisible(true);
+            
+        }
+    }//GEN-LAST:event_tipoControleComboBox1ActionPerformed
+
+    private void pvTanque2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pvTanque2StateChanged
+        if(this.pvTanque2.isSelected()){
+            this.jPanelEsquemaControles.setVisible(true);
+            this.jLabel20.setVisible(true);
+        }
+        else{
+            this.jPanelEsquemaControles.setVisible(false);
+            this.jLabel20.setVisible(false);
+        }
+    }//GEN-LAST:event_pvTanque2StateChanged
+
+    private void radioButtonCascataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCascataActionPerformed
+        if(this.radioButtonCascata.isSelected()){
+            this.parametrosPIDPanel1.setVisible(true);
+            this.tipoControleComboBox1.setVisible(true);
+            this.jLabel25.setVisible(true);
+        }
+    }//GEN-LAST:event_radioButtonCascataActionPerformed
+
+    private void radioButtonSimplesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonSimplesActionPerformed
+        if(this.radioButtonSimples.isSelected()){
+            this.parametrosPIDPanel1.setVisible(false);
+            this.tipoControleComboBox1.setVisible(false);
+            this.jLabel25.setVisible(false);
+        }
+    }//GEN-LAST:event_radioButtonSimplesActionPerformed
 
     public String getKpValor(){
         return kpTextField.getText();
@@ -972,8 +1304,32 @@ public class FuncoesWindow extends javax.swing.JFrame {
         return tdTextField.getText();
     }
     
+    public String getKp1Valor(){
+        return kpTextField1.getText();
+    }
+    
+    public String getKi1Valor(){
+        return kiTextField1.getText();
+    }
+    
+    public String getKd1Valor(){
+        return kdTextField1.getText();
+    }
+    
+    public String getTi1Valor(){
+        return tiTextField1.getText();
+    }
+    
+    public String getTd1Valor(){
+        return tdTextField1.getText();
+    }
+    
     public int getSelectedControle(){
         return this.tipoControleComboBox.getSelectedIndex();
+    }
+    
+    public int getSelectedControle1(){
+        return this.tipoControleComboBox1.getSelectedIndex();
     }
     
     public String GetFuncaoSelecionada(){
@@ -1122,7 +1478,92 @@ public class FuncoesWindow extends javax.swing.JFrame {
     public boolean isDerivativoAtivado(){
         return this.filtroDerivativoCheckBox.isSelected();
     }
-
+    
+    public boolean isCascata(){
+        return this.radioButtonCascata.isSelected();
+    }
+    
+    public double[] getPID2Valores(){
+        theresError = false;
+        double p = 0, i = 0, d = 0;
+        
+        double[] param = new double[3];
+        try{
+            p = Double.parseDouble(this.getKp1Valor());
+        } catch (Exception e) {
+            theresError = true;
+            erro += "Valor de Kp inválido.\n";
+        }
+        
+        if(this.getKi1Valor().isEmpty() && this.getTi1Valor().isEmpty()){
+            i = 0;
+        }
+        else{
+            if("NaN".equals(this.getKi1Valor())){
+                try{
+                    i = Double.parseDouble(this.getTi1Valor());
+                } catch (Exception e) {
+                    theresError = true;
+                    erro += "Valor de Ti inválido.\n";
+                }
+            }
+            else{
+                try{
+                    i = Double.parseDouble(this.getKi1Valor());
+                } catch (Exception e) {
+                    theresError = true;
+                    erro += "Valor de Ki inválido.\n";
+                }
+            }
+        }
+        
+        if(this.getKd1Valor().isEmpty() && this.getTd1Valor().isEmpty()){
+            d = 0;
+        }
+        else{
+            if("NaN".equals(this.getKdValor())){
+                try{
+                    d = Double.parseDouble(this.getTd1Valor());
+                } catch (Exception e) {
+                    theresError = true;
+                    erro += "Valor de Td inválido.\n";
+                }
+            }
+            else{
+                try{
+                    i = Double.parseDouble(this.getKd1Valor());
+                } catch (Exception e) {
+                    theresError = true;
+                    erro += "Valor de Kd inválido.\n";
+                }
+            }
+        }
+        
+        param[0] = p;
+        param[1] = i;
+        param[2] = d;
+        
+        return param;
+    }
+    
+    public boolean isKi1(){
+        if(this.getKi1Valor().isEmpty() && this.getTi1Valor().isEmpty()){
+            return false;
+        }
+        else{
+            return !"NaN".equals(this.getKi1Valor());
+        }
+    }
+    
+    public boolean isKd1(){
+        if(this.getKd1Valor().isEmpty() && this.getTd1Valor().isEmpty()){
+            return false;
+        }
+        else{
+            return !"NaN".equals(this.getKd1Valor());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Amplitude;
     private javax.swing.JTextField AmplitudeMaxima;
@@ -1143,6 +1584,7 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox antiWindUpCheckBox;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JCheckBox filtroDerivativoCheckBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1154,10 +1596,14 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1172,21 +1618,35 @@ public class FuncoesWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanelEsquemaControles;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField kdTextField;
+    private javax.swing.JTextField kdTextField1;
     private javax.swing.JTextField kiTextField;
+    private javax.swing.JTextField kiTextField1;
     private javax.swing.JTextField kpTextField;
+    private javax.swing.JTextField kpTextField1;
     private javax.swing.JLabel labelKd;
+    private javax.swing.JLabel labelKd1;
     private javax.swing.JLabel labelKi;
+    private javax.swing.JLabel labelKi1;
     private javax.swing.JLabel labelTd;
+    private javax.swing.JLabel labelTd1;
     private javax.swing.JLabel labelTi;
+    private javax.swing.JLabel labelTi1;
     private javax.swing.JPanel parametrosPIDPanel;
+    private javax.swing.JPanel parametrosPIDPanel1;
     private javax.swing.JPanel pvPanel;
     private javax.swing.JRadioButton pvTanque1;
     private javax.swing.JRadioButton pvTanque2;
+    private javax.swing.JRadioButton radioButtonCascata;
+    private javax.swing.JRadioButton radioButtonSimples;
     private javax.swing.JTextField tdTextField;
+    private javax.swing.JTextField tdTextField1;
     private javax.swing.JTextField tiTextField;
+    private javax.swing.JTextField tiTextField1;
     private javax.swing.JComboBox<String> tipoControleComboBox;
+    private javax.swing.JComboBox<String> tipoControleComboBox1;
     private javax.swing.ButtonGroup tipoMalha;
     private javax.swing.ButtonGroup variaveisControleGroup;
     // End of variables declaration//GEN-END:variables

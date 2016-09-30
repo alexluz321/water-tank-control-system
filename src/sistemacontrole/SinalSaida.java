@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
  */
 public class SinalSaida {
     private static PID pid;
+    private static PID pidEscravo;
     
     private double sinal_calculado, sinal_tratado;
     ImageIcon diagramaON = new ImageIcon(LeituraEscritaCanais.class.getResource("/imagens/diagrama_on.png"));
@@ -39,10 +40,11 @@ public class SinalSaida {
     
     Thread sinalSaida;
     
-    SinalSaida(LeituraEscritaCanais leituraEscritaCanais, FuncoesWindow funcoesWindow, PID pid){
+    SinalSaida(LeituraEscritaCanais leituraEscritaCanais, FuncoesWindow funcoesWindow, PID pid, PID pidEscravo){
         this.leituraEscritaCanais = leituraEscritaCanais;
         this.funcoesWindow = funcoesWindow;
         SinalSaida.pid = pid;
+        SinalSaida.pidEscravo = pidEscravo;
         
         this.isGerarNovoAleatorio = true;
         runSinal = true;
@@ -126,7 +128,12 @@ public class SinalSaida {
                         break;
                     }
                     SinalSaida.pid.setSetPoint(getSinalCalculado(), true);
-                    setSinalCalculado(SinalSaida.pid.getValorCalculado());
+                    double valorPID = SinalSaida.pid.getValorCalculado();
+                    if(funcoesWindow.isCascata()){//se for cascata, calcula escravo
+                        SinalSaida.pidEscravo.setSetPoint(valorPID, false);
+                        valorPID = SinalSaida.pidEscravo.getValorCalculado();
+                    }
+                    setSinalCalculado(valorPID);
                     checarTravas();
                     enviarBomba();
                     Thread.sleep(100);

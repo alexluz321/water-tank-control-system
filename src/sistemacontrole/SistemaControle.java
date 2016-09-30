@@ -23,7 +23,7 @@ public class SistemaControle {
     private static LogWindow logWindow;
     private static LeituraEscritaCanais leituraEscritaCanais;
     private static SinalSaida sinalSaida;
-    private static PID pid;
+    private static PID pid, pid2;
 
     //cria conexao
     QuanserClient quanserClient;
@@ -127,6 +127,7 @@ public class SistemaControle {
             leituraEscritaCanais.iniciarThreads();
             
             SistemaControle.pid = new PID(SistemaControle.JanelaFuncao, SistemaControle.leituraEscritaCanais, SistemaControle.JanelaPrincipal);
+            SistemaControle.pid2 = new PID(SistemaControle.JanelaFuncao, SistemaControle.leituraEscritaCanais, SistemaControle.JanelaPrincipal);
         }
     }
     
@@ -170,17 +171,32 @@ public class SistemaControle {
                 boolean isKd = SistemaControle.JanelaFuncao.isKd();
                 
                 SistemaControle.pid.setTipoControle(tipoControle);
+                SistemaControle.pid.setEscravo(false);
+                SistemaControle.pid.setPV(0);
                 SistemaControle.pid.setPIDParametros(paramPID[0], paramPID[1], isKi, paramPID[2], isKd);
+                
+                //controle cascata
+                if(SistemaControle.JanelaFuncao.getPV() == 1 && SistemaControle.JanelaFuncao.isCascata()){
+                    SistemaControle.pid.setPV(1);
+                    tipoControle = SistemaControle.JanelaFuncao.getSelectedControle1();
+                    paramPID = SistemaControle.JanelaFuncao.getPID2Valores();
+                    isKi = SistemaControle.JanelaFuncao.isKi1();
+                    isKd = SistemaControle.JanelaFuncao.isKd1();
+                    SistemaControle.pid2.setTipoControle(tipoControle);
+                    SistemaControle.pid2.setPV(0);
+                    SistemaControle.pid2.setEscravo(true);
+                    SistemaControle.pid2.setPIDParametros(paramPID[0], paramPID[1], isKi, paramPID[2], isKd);
+                }
             }
             else{
-                sinalSaida = new SinalSaida(SistemaControle.leituraEscritaCanais, SistemaControle.JanelaFuncao, SistemaControle.pid);
+                sinalSaida = new SinalSaida(SistemaControle.leituraEscritaCanais, SistemaControle.JanelaFuncao, SistemaControle.pid, SistemaControle.pid2);
                 JanelaFuncao.setVisible(false);
 
             }
             
             if(SistemaControle.JanelaFuncao.isMalhaFechada() && !SistemaControle.JanelaFuncao.theresError){
                 JanelaFuncao.setVisible(false);
-                sinalSaida = new SinalSaida(SistemaControle.leituraEscritaCanais, SistemaControle.JanelaFuncao, SistemaControle.pid);
+                sinalSaida = new SinalSaida(SistemaControle.leituraEscritaCanais, SistemaControle.JanelaFuncao, SistemaControle.pid, SistemaControle.pid2);
             }
             else if(SistemaControle.JanelaFuncao.isMalhaFechada() && SistemaControle.JanelaFuncao.theresError){
                 JanelaFuncao.mostrarErro();
